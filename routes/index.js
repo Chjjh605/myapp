@@ -23,7 +23,9 @@ router.get('/', async (req, res) => {
 
 // ✅ Route 53 헬스체크용 엔드포인트
 router.get('/health', (req, res) => {
+  if (process.env.HEALTH_FAIL === 'true') {
+    return res.status(500).send('FAIL');
+  }
+
   res.status(200).send('OK');
 });
-
-module.exports = router;
